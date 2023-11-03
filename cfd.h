@@ -22,7 +22,7 @@ typedef struct cfd_concept {
   enum cfd_grammar_type type;
 
   unsigned size;
-  char id[];
+  char *id;
 } cfd_concept;
 
 // feature paths
@@ -63,6 +63,7 @@ typedef struct cfd_conjunction {
 
 typedef struct cfd_equality {
   enum cfd_grammar_type type;
+
   cfd_pf *lhs;
   cfd_pf *rhs;
 } cfd_equality;
@@ -73,7 +74,7 @@ typedef struct cfd_pfd {
   cfd_node *concept;
   cfd_pf *rhs;
   unsigned lhs_size;
-  cfd_pf *lhs[];
+  cfd_pf *lhs;
 } cfd_pfd;
 
 typedef struct cfd_pfd_key {
@@ -82,7 +83,7 @@ typedef struct cfd_pfd_key {
   cfd_node *concept;
   cfd_node *rhs;
   unsigned lhs_size;
-  cfd_pf *lhs[];
+  cfd_pf *lhs;
 } cfd_pfd_key;
 
 #endif // CFD
