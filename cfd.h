@@ -1,67 +1,88 @@
+#pragma once
+
 #ifndef CFD
 #define CFD
 
-// feature paths
-struct cfd_pf {
-  struct cfd_pf *next;
-  char id[];
+enum cfd_grammar_type {
+  CONCEPT,
+  RESTRICTION,
+  NEGATION,
+  CONJUNCTION,
+  EQUALITY,
+  PFD,
+  PFD_KEY
 };
+
+// the root tagged struct
+typedef struct cfd_node {
+  enum cfd_grammar_type type;
+} cfd_node;
+
+typedef struct cfd_concept {
+  enum cfd_grammar_type type;
+
+  unsigned size;
+  char id[];
+} cfd_concept;
+
+// feature paths
+typedef struct cfd_pf {
+  enum cfd_grammar_type type;
+
+  struct cfd_pf *next;
+  cfd_concept *concept;
+} cfd_pf;
 
 // inclusion dependency
-struct cfd_inc_dep {
-  int LHS;
-  int RHS;
-};
+typedef struct cfd_inc_dep {
+  enum cfd_grammar_type type;
 
-enum cfd_grammar_type {CONCEPT, RESTRICTION, NEGATION, CONJUNCTION, EQUALITY, PFD, PFD_KEY};
+  cfd_node *lhs;
+  cfd_node *rhs;
+} cfd_inc_dep;
 
-struct cfd_concepts {
-  cfd_grammar_type type;
-  char concept[];
-};
+typedef struct cfd_restriction {
+  enum cfd_grammar_type type;
 
-struct cfd_restriction {
-  cfd_grammar_type type;
-  void * child;
-  cfd_pf path;
-};
+  cfd_concept *c;
+  cfd_pf *path;
+} cfd_restriction;
 
-struct cfd_negation {
-  cfd_grammar_type type;
-  char concept[];
-};
+typedef struct cfd_negation {
+  enum cfd_grammar_type type;
 
-struct cfd_conjunction {
-  cfd_grammar_type type;
-  void * lhs;
-  void * rhs;
-};
+  cfd_concept *c;
+} cfd_negation;
 
-struct cfd_equality {
-  cfd_grammar_type type;
-  void * lhs;
-  void * rhs;
-};
+typedef struct cfd_conjunction {
+  enum cfd_grammar_type type;
 
-struct cfd_pfd {
-  cfd_grammar_type type;
-  void * concept;
-  void * lhs;
-  void * rhs;
-};
+  cfd_concept *lhs;
+  cfd_concept *rhs;
+} cfd_conjunction;
 
-struct cfd_pfd_key {
-  cfd_grammar_type type;
-  void * concept;
-  void * lhs;
-  void * rhs;
-};
+typedef struct cfd_equality {
+  enum cfd_grammar_type type;
+  cfd_pf *lhs;
+  cfd_pf *rhs;
+} cfd_equality;
 
-// consolidate overall struct later
-struct cfd_grammar {
-  
-};
+typedef struct cfd_pfd {
+  enum cfd_grammar_type type;
 
+  cfd_node *concept;
+  cfd_pf *rhs;
+  unsigned lhs_size;
+  cfd_pf *lhs[];
+} cfd_pfd;
 
+typedef struct cfd_pfd_key {
+  enum cfd_grammar_type type;
 
-#endif
+  cfd_node *concept;
+  cfd_node *rhs;
+  unsigned lhs_size;
+  cfd_pf *lhs[];
+} cfd_pfd_key;
+
+#endif // CFD
