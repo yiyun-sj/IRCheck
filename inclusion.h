@@ -7,6 +7,12 @@
 #include "cfd.h"
 #include "stdbool.h"
 
+// inclusion dependency
+typedef struct cfd_inc_dep {
+  cfd_node *lhs;
+  cfd_node *rhs;
+} cfd_inc_dep;
+
 /* add an inclusion dependency to the terminology T*/
 void cfd_inclusion_tell(cfd_inc_dep inc_dep);
 /* determine logical consequence, if all As are D1s then all As are D2s*/
