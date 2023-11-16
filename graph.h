@@ -3,15 +3,17 @@
 #ifndef GRAPH
 #define GRAPH
 
+#include "cfd.h"
+
 typedef struct graph_node {
-  char* ds; // concept descriptions
-  char* pf; // attribute descriptions
+  cfd_node* ds; // concept descriptions
+  cfd_pf* pf; // attribute descriptions
   char* fired; // subsumptions constraints that alr fired
 };
 
 typedef struct graph_edge {
   int from; // node idx
-  char* label; // either primitive attribute name or Id
+  cfd_pf* label; // either primitive attribute name or Id
   int to; // node idx
 };
 
