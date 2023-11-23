@@ -19,9 +19,11 @@ typedef struct graph_edge {
 
 
 typedef struct desc_graph {
+  unsigned nodes_sz;
   graph_node* nodes;
+  unsigned edges_sz;
   graph_edge* edges;
-  int dst_node; // distinguished node
+  int dst_node = 0; // distinguished node
 } desc_graph;
 
 #endif
