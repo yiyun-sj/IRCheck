@@ -4,16 +4,16 @@
 #define INCLUSION
 
 /* check if input is a valid cfd */
+#include <stdbool.h>
 #include "cfd.h"
-#include "stdbool.h"
 #include "graph.h"
 
 /* add an inclusion dependency to the terminology T*/
-void cfd_inclusion_tell(cfd_inc_dep inc_dep);
+void cfd_inclusion_tell(cfd_inc_deps* cur_deps, cfd_inc_dep new_dep);
 /* determine logical consequence, if all As are D1s then all As are D2s*/
-bool cfd_inclusion_ask(cfd_concept a, cfd_concept d1, cfd_concept d2);
+bool cfd_inclusion_ask(cfd_inc_deps* cur_deps, cfd_inc_dep rhs);
 /* clear terminology T*/
-void cfd_inclusion_reset();
+void cfd_inclusion_reset(cfd_inc_deps* cur_deps);
 
 /* Helper Functions for ASK */
 /* SUBSUMES
@@ -21,8 +21,8 @@ void cfd_inclusion_reset();
  *      <=iff=> 
  *   subsumes(d2, exp(G:({n},{},n), S U {c1 < d1}), S U {c1 < d1}, c2, true)
  */
-bool subsumes(cfd_node d2, desc_graph* g, void* constraints, cfd_node c2, bool t);
-void exp(desc_graph* g, void* constraints);
+bool subsumes(cfd_node d2, desc_graph* g, cfd_inc_deps* constraints, cfd_node c2, bool t);
+void exp(desc_graph* g, cfd_inc_deps* constraints);
 
 /* Helper Functions for SUBSUMES/EXP */
 
