@@ -3,6 +3,12 @@
 #ifndef CFD
 #define CFD
 
+// inclusion dependency
+typedef struct cfd_inc_dep {
+  cfd_node *lhs;
+  cfd_node *rhs;
+} cfd_inc_dep;
+
 // feature paths
 typedef struct cfd_pf {
   bool is_cpt;

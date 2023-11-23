@@ -8,12 +8,6 @@
 #include "stdbool.h"
 #include "graph.h"
 
-// inclusion dependency
-typedef struct cfd_inc_dep {
-  cfd_node *lhs;
-  cfd_node *rhs;
-} cfd_inc_dep;
-
 /* add an inclusion dependency to the terminology T*/
 void cfd_inclusion_tell(cfd_inc_dep inc_dep);
 /* determine logical consequence, if all As are D1s then all As are D2s*/
@@ -28,7 +22,7 @@ void cfd_inclusion_reset();
  *   subsumes(d2, exp(G:({n},{},n), S U {c1 < d1}), S U {c1 < d1}, c2, true)
  */
 bool subsumes(cfd_node d2, desc_graph* g, void* constraints, cfd_node c2, bool t);
-void exp(desc_graph g, void* constraints);
+void exp(desc_graph* g, void* constraints);
 
 /* Helper Functions for SUBSUMES/EXP */
 

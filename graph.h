@@ -8,7 +8,7 @@
 typedef struct graph_node {
   cfd_node* ds; // concept descriptions
   cfd_pf* pf; // attribute descriptions
-  char* fired; // subsumptions constraints that alr fired
+  cfd_inc_dep* fired; // subsumptions constraints that alr fired
 };
 
 typedef struct graph_edge {
